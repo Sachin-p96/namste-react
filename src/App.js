@@ -1,5 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Header } from "./components/Header";
+import Body from "./components/Body";
+import About from "./components/About";
+import Contactus from "./components/Contactus";
+import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurantMenu";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 //jsx is not html , it is html like syntax
 /*what components we need to plan.
@@ -9,50 +16,7 @@ import ReactDOM from "react-dom/client";
 */
 
 // we can use component inside element
-const Header = () => {
-  return (
-    <div className="header">
-      <div className="logo-container">
-        <img
-          className="logo"
-          src="https://t3.ftcdn.net/jpg/02/41/30/72/360_F_241307210_MjjaJC3SJy2zJZ6B7bKGMRsKQbdwRSze.jpg"
-        ></img>
-      </div>
-      <div className="navbar">
-        <ul className="navlist">
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-const RestaurantCard = ({
-  name,
-  cuisines,
-  cloudinaryImageId,
-  lastMileTravelString,
-}) => {
-  // { resData } = props;
-  return (
-    <div className="res-card">
-      <img
-        className="res-logo"
-        alt="res-logot"
-        src={
-          "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
-          cloudinaryImageId
-        }
-      />
-      <h3>{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
-      <h4>4.4 stars</h4>
-      <h4>38 mins</h4>
-    </div>
-  );
-};
+
 const restrautList = [
   {
     type: "restaurant",
@@ -784,25 +748,39 @@ const restrautList = [
     subtype: "basic",
   },
 ];
-const Body = () => {
-  return (
-    <div className="body">
-      <div className="search">Search</div>
-      <div className="res-container">
-        {restrautList.map((restaurant) => (
-          <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
-        ))}
-      </div>
-    </div>
-  );
-};
+
 const AppLayout = () => {
   return (
     <div className="app">
       <Header />
-      <Body />
+      <Outlet />
     </div>
   );
 };
+
+const appRouter = createBrowserRouter([
+  { path: "/",
+   element: <AppLayout /> ,
+   children: [
+    {
+      path : "/",
+      element: <Body />
+    },
+    {
+      path: "/about",
+     element: <About /> 
+    },
+    {
+      path : "/contact",
+      element: <Contactus />
+    },
+    {
+      path : "/restaurant/:resId",
+      element: <RestaurantMenu />
+    }
+   ],
+   errorElement : <Error />
+  }
+]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+root.render(<RouterProvider router={appRouter} />);
