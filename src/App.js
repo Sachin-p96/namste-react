@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import { Header } from "./components/Header";
 import Body from "./components/Body";
@@ -7,6 +7,7 @@ import Contactus from "./components/Contactus";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+//import Grocerry from "./components/Grocerry";
 
 //jsx is not html , it is html like syntax
 /*what components we need to plan.
@@ -14,7 +15,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
   2. Body --> Search, Restaurant container --> restaurant card
   3.Footer -> footer Links
 */
-
+const Grocerrys = lazy(()=>import("./components/Grocerry"))
 // we can use component inside element
 
 const restrautList = [
@@ -773,6 +774,10 @@ const appRouter = createBrowserRouter([
     {
       path : "/contact",
       element: <Contactus />
+    },
+    {
+      path : "/grocerry",
+      element: <Suspense fallback = {<h1>Loding</h1>}><Grocerrys /></Suspense>
     },
     {
       path : "/restaurant/:resId",

@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { ShimmerSimpleGallery } from "react-shimmer-effects";
 import {Link} from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
   let [restrautLists, setRestList] = useState([]);
   const [fliteredSearchRestaurants, setFilteredSearchRestauants] = useState([]);
   const [value, setValue] = useState("");
+  const onlineStatus = useOnlineStatus();
   useEffect(() => {
     fetchData();
   }, []);
@@ -42,7 +44,13 @@ const Body = () => {
     );
     setFilteredSearchRestauants(searchResultsList);
   };
-
+ if (onlineStatus === false) {
+   return (
+     <>
+        <h1>Hey looks like you are offline! Please Check your Connection!</h1>
+     </>
+   )
+ }
   return (
     <div className="body">
       {restrautLists.length > 0 ? (

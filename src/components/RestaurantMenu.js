@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ShimmerContentBlock } from "react-shimmer-effects";
 import { isEmpty } from "lodash";
 import { useParams } from "react-router-dom";
+import useMenuInfo from "../utils/useMenuInfo";
 const RendermenuDetails = (menu) => {
     console.log(menu.menu.card.info.name,'menu==')
     
@@ -16,36 +17,39 @@ const RendermenuDetails = (menu) => {
 };
 
 const RestaurantMenu = () => {
-  const [hotelInfo, setHotelInfo] = useState({});
-  const [menuInfo, setMenuInfo] = useState({});
+ 
   const {resId} = useParams();
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-
-  const fetchMenu = async () => {
-    const data = await fetch(`
-    https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.96340&lng=77.58550&restaurantId=${resId}&catalog_qa=undefined&submitAction=ENTER`);
-    const restaurantInfo = await data.json();
-    console.log(restaurantInfo, "haha---");
-    console.log(restaurantInfo?.data?.cards[0]?.card?.card?.info, "haha");
-    setHotelInfo(restaurantInfo?.data?.cards[0]?.card?.card?.info);
-    setMenuInfo(
-      restaurantInfo?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR
-        ?.cards[8]?.card?.card?.itemCards
-    );
-  };
-
-  console.log(hotelInfo.length, "hotel--");
-  const { name, costForTwoMessage, cloudinaryImageId } = hotelInfo;
-  console.log(name, "heyNAme");
-  console.log(menuInfo, "heyNAme");
+  const resInfo = useMenuInfo(resId);
+  console.log(resInfo,'hahababe')
+ 
+ 
 
   const isObjectEmpty = (obj) => {
     return isEmpty(obj);
   };
+if (isObjectEmpty(resInfo)){
+    return(
+        
+            <>
+              <div>
+                <ShimmerContentBlock
+                  title
+                  text
+                  cta
+                  thumbnailWidth={370}
+                  thumbnailHeight={370}
+                />
+              </div>
+            </>
+          
+    )
+}
+  const { name, costForTwoMessage, cloudinaryImageId } = resInfo?.cards[2]?.card?.card?.info;
+  
+  const {itemCards} = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR
+  ?.cards[8]?.card?.card
 
-  return !isObjectEmpty(hotelInfo) ? (
+  return (
     <>
       <div>
         <div className="name-img">
@@ -64,23 +68,11 @@ const RestaurantMenu = () => {
       </div>
       <div>{costForTwoMessage}</div>
       <div> Menu</div>
-      {menuInfo?.map((menu, index) => (
+      {itemCards?.map((menu, index) => (
         <RendermenuDetails key={index} menu ={menu} />
       ))}
     </>
-  ) : (
-    <>
-      <div>
-        <ShimmerContentBlock
-          title
-          text
-          cta
-          thumbnailWidth={370}
-          thumbnailHeight={370}
-        />
-      </div>
-    </>
-  );
+  ) 
 };
 
 export default RestaurantMenu;
