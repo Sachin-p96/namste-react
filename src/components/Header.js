@@ -12,20 +12,20 @@ export const Header = () => {
         }
     }
     return (
-      <div className="header">
+      <div className="flex justify-between bg-orange-400 brightness-125">
         <div className="logo-container">
           <img
-            className="logo"
+            className="w-40"
             src={LOGO_URL}
           ></img>
         </div>
-        <div className="navbar">
-          <ul className="navlist">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
-            <li><Link to="/grocerry">Grocerry Mart</Link></li>
-            <li>Cart</li>
+        <div className="flex items-center justify-between">
+          <ul className="flex p-8 m-4 justify-between ">
+            <li className="px-4"><Link to="/">Home</Link></li>
+            <li className="px-4"><Link to="/about">About</Link></li>
+            <li className="px-4"><Link to="/contact">Contact Us</Link></li>
+            <li className="px-4"><Link to="/grocerry">Grocerry Mart</Link></li>
+            <li className="px-4">Cart</li>
             <button onClick = {handleButtonChange}>{btnName}</button>
           </ul>
         </div>

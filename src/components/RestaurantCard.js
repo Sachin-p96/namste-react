@@ -10,7 +10,7 @@ const RestaurantCard = ({
     // { resData } = props;
     const cuisineList = cuisines ? cuisines.length > 1 ? cuisines.join(", ") : cuisines : ''
     return (
-      <div className="res-card">
+      <div className="w-[250px] h-[350px] mx-3 my-4 bg-[#FFD580] brightness text-black  font-mono border rounded-md shadow hover:shadow-lg hover:scale-105 transform transition duration-75">
         <img
           className="res-logo"
           alt="res-logot"

@@ -30,11 +30,12 @@ const Body = () => {
     setValue(event.target.value);
   };
   const handleClick = () => {
+    console.log('am i called')
     const filtereList = restrautLists.filter(
       (res) => res.info.avgRating >= 4.4
     );
     console.log(filtereList, "heyBuddy");
-    setRestList(filtereList);
+    setFilteredSearchRestauants(filtereList);
   };
   const searchRestaurant = () => {
     console.log(restrautLists, "haha");
@@ -55,22 +56,23 @@ const Body = () => {
     <div className="body">
       {restrautLists.length > 0 ? (
         <>
-          <div className="filter">
-            <div className="search">
+          <div className="mt-2 p-4 flex justify-end">
+            <div className="search flex">
               <input
                 type="text"
-                className="search-box"
+                className="px-8 py-1 mr-3 border focus:border-none"
                 placeholder="Search the restaurant"
                 value={value}
                 onChange={handleInputChange}
               />
-              <button onClick={searchRestaurant}>Search</button>
+              <button className="bg-transparent px-8 py-1 mr-3 hover:bg-orange-200 hover:text-black text-orange-500 font-semibold hover:text-white py-2 px-4 border  border-black hover:border-transparent rounded" onClick={searchRestaurant}>Search</button>
+             
             </div>
-            <button className="filter-btn" onClick={handleClick}>
-              Top Rated Button
+            <button className="px-8 py-1 bg-orange-200" onClick={handleClick}>
+              Top Rated Resturants
             </button>
           </div>
-          <div className="res-container">
+          <div className="flex flex-wrap justify-center bg-orange-100">
             {fliteredSearchRestaurants.map((restaurant) => (
               <Link to = {"/restaurant/"+restaurant.info.id} key={restaurant?.info?.id}><RestaurantCard {...restaurant.info} /></Link>
               

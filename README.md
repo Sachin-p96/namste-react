@@ -14,3 +14,5 @@
   -differemntial bundling -- to support older browsers,chrome edge,safari
   -HTTPs
   -Tree shaking - remove unused code
+
+  #postcssrc file - it is to make parcel know that we are using tailwind as the plugin to enhance css with javascript
