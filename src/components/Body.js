@@ -1,13 +1,14 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { cardWithPromoted } from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { ShimmerSimpleGallery } from "react-shimmer-effects";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
   let [restrautLists, setRestList] = useState([]);
   const [fliteredSearchRestaurants, setFilteredSearchRestauants] = useState([]);
   const [value, setValue] = useState("");
+  const RestaurantCardWithPromoted = cardWithPromoted(RestaurantCard);
   const onlineStatus = useOnlineStatus();
   useEffect(() => {
     fetchData();
@@ -22,7 +23,9 @@ const Body = () => {
     setRestList(
       data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
-    setFilteredSearchRestauants(data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setFilteredSearchRestauants(
+      data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
 
   const handleInputChange = (event) => {
@@ -30,7 +33,7 @@ const Body = () => {
     setValue(event.target.value);
   };
   const handleClick = () => {
-    console.log('am i called')
+    console.log("am i called");
     const filtereList = restrautLists.filter(
       (res) => res.info.avgRating >= 4.4
     );
@@ -45,13 +48,13 @@ const Body = () => {
     );
     setFilteredSearchRestauants(searchResultsList);
   };
- if (onlineStatus === false) {
-   return (
-     <>
+  if (onlineStatus === false) {
+    return (
+      <>
         <h1>Hey looks like you are offline! Please Check your Connection!</h1>
-     </>
-   )
- }
+      </>
+    );
+  }
   return (
     <div className="body">
       {restrautLists.length > 0 ? (
@@ -65,8 +68,12 @@ const Body = () => {
                 value={value}
                 onChange={handleInputChange}
               />
-              <button className="bg-transparent px-8 py-1 mr-3 hover:bg-orange-200 hover:text-black text-orange-500 font-semibold hover:text-white py-2 px-4 border  border-black hover:border-transparent rounded" onClick={searchRestaurant}>Search</button>
-             
+              <button
+                className="bg-transparent px-8 py-1 mr-3 hover:bg-orange-200 hover:text-black text-orange-500 font-semibold hover:text-white py-2 px-4 border  border-black hover:border-transparent rounded"
+                onClick={searchRestaurant}
+              >
+                Search
+              </button>
             </div>
             <button className="px-8 py-1 bg-orange-200" onClick={handleClick}>
               Top Rated Resturants
@@ -74,8 +81,16 @@ const Body = () => {
           </div>
           <div className="flex flex-wrap justify-center bg-orange-100">
             {fliteredSearchRestaurants.map((restaurant) => (
-              <Link to = {"/restaurant/"+restaurant.info.id} key={restaurant?.info?.id}><RestaurantCard {...restaurant.info} /></Link>
-              
+              <Link
+                to={"/restaurant/" + restaurant.info.id}
+                key={restaurant?.info?.id}
+              >
+                {restaurant.info.avgRating > 4.2 ? (
+                  <RestaurantCardWithPromoted {...restaurant.info} />
+                ) : (
+                  <RestaurantCard {...restaurant.info} />
+                )}
+              </Link>
             ))}
           </div>
         </>
