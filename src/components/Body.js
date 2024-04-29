@@ -1,13 +1,15 @@
 import RestaurantCard, { cardWithPromoted } from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import Shimmer from "./Shimmer";
 import { ShimmerSimpleGallery } from "react-shimmer-effects";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 const Body = () => {
   let [restrautLists, setRestList] = useState([]);
   const [fliteredSearchRestaurants, setFilteredSearchRestauants] = useState([]);
   const [value, setValue] = useState("");
+  const {setName} = useContext(UserContext);
   const RestaurantCardWithPromoted = cardWithPromoted(RestaurantCard);
   const onlineStatus = useOnlineStatus();
   useEffect(() => {
@@ -78,6 +80,10 @@ const Body = () => {
             <button className="px-8 py-1 bg-orange-200" onClick={handleClick}>
               Top Rated Resturants
             </button>
+            
+                
+              <input className="px-8 py-1 ml-2 border border-orange-400" placeholder="Enter Login name" onChange={(e)=> {setName(e.target.value)}} />
+
           </div>
           <div className="flex flex-wrap justify-center bg-orange-100">
             {fliteredSearchRestaurants.map((restaurant) => (

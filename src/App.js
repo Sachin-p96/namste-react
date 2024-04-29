@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { StrictMode, Suspense, lazy, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Header } from "./components/Header";
 import Body from "./components/Body";
@@ -7,6 +7,7 @@ import Contactus from "./components/Contactus";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import UserContext from "./utils/UserContext";
 //import Grocerry from "./components/Grocerry";
 
 //jsx is not html , it is html like syntax
@@ -15,7 +16,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
   2. Body --> Search, Restaurant container --> restaurant card
   3.Footer -> footer Links
 */
-const Grocerrys = lazy(()=>import("./components/Grocerry"))
+const Grocerrys = lazy(() => import("./components/Grocerry"));
 // we can use component inside element
 
 const restrautList = [
@@ -751,41 +752,58 @@ const restrautList = [
 ];
 
 const AppLayout = () => {
+  const [name, setName] = useState("");
+  useEffect(() => {
+    setName("Elone Musk");
+  }, []);
   return (
     <div className="app">
-      <Header />
+      <UserContext.Provider value={{ loggedUser: name ,setName}}>
+        <Header />
+      
+
       <Outlet />
+      </UserContext.Provider>
     </div>
   );
 };
 
 const appRouter = createBrowserRouter([
-  { path: "/",
-   element: <AppLayout /> ,
-   children: [
-    {
-      path : "/",
-      element: <Body />
-    },
-    {
-      path: "/about",
-     element: <About /> 
-    },
-    {
-      path : "/contact",
-      element: <Contactus />
-    },
-    {
-      path : "/grocerry",
-      element: <Suspense fallback = {<h1>Loding</h1>}><Grocerrys /></Suspense>
-    },
-    {
-      path : "/restaurant/:resId",
-      element: <RestaurantMenu />
-    }
-   ],
-   errorElement : <Error />
-  }
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contactus />,
+      },
+      {
+        path: "/grocerry",
+        element: (
+          <Suspense fallback={<h1>Loding</h1>}>
+            <Grocerrys />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/restaurant/:resId",
+        element: <RestaurantMenu />,
+      },
+    ],
+    errorElement: <Error />,
+  },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter} />);
+root.render(
+  <StrictMode>
+    <RouterProvider router={appRouter} />
+  </StrictMode>
+);
