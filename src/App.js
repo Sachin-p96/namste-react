@@ -8,6 +8,8 @@ import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 //import Grocerry from "./components/Grocerry";
 
 //jsx is not html , it is html like syntax
@@ -757,14 +759,15 @@ const AppLayout = () => {
     setName("Elone Musk");
   }, []);
   return (
-    <div className="app">
-      <UserContext.Provider value={{ loggedUser: name ,setName}}>
+    <Provider store = {appStore}>
+    <UserContext.Provider value={{ loggedUser: name, setName }}>
+      <div className="app">
         <Header />
-      
 
-      <Outlet />
-      </UserContext.Provider>
-    </div>
+        <Outlet />
+      </div>
+    </UserContext.Provider>
+    </Provider>
   );
 };
 

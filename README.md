@@ -16,3 +16,12 @@
   -Tree shaking - remove unused code
 
   #postcssrc file - it is to make parcel know that we are using tailwind as the plugin to enhance css with javascript
+
+  #Redux 
+    -Install @reduxjs/toolkit and react-redux
+    -Build our Store
+    -Connect our Store to App
+    -Slice
+    -dispatch(action)
+    -selector
+    
