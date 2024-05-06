@@ -10,6 +10,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
 //import Grocerry from "./components/Grocerry";
 
 //jsx is not html , it is html like syntax
@@ -800,6 +801,10 @@ const appRouter = createBrowserRouter([
         path: "/restaurant/:resId",
         element: <RestaurantMenu />,
       },
+      {
+        path: "/cart",
+        element: <Cart />,
+      }
     ],
     errorElement: <Error />,
   },

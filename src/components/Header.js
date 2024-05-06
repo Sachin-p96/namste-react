@@ -39,7 +39,8 @@ export const Header = () => {
             <Link to="/grocerry">Grocerry Mart</Link>
           </li>
           <li className="px-4 font-serif font-bold">
-            Cart -- {cartitems.length} items
+          <Link to="/cart"> 🛒 {cartitems.length} items</Link>
+            
           </li>
 
           <button onClick={handleButtonChange}>{btnName}</button>
