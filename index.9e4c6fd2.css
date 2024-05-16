@@ -29,7 +29,6 @@ hr {
 }
 
 abbr:where([title]) {
-  -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
 
@@ -605,5 +604,4 @@ img, video {
 .focus\:border-none:focus {
   border-style: none;
 }
-
 /*# sourceMappingURL=index.9e4c6fd2.css.map */

@@ -142,15 +142,16 @@
       this[globalName] = mainExports;
     }
   }
-})({"9A7zD":[function(require,module,exports) {
+})({"9wh9R":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
+var HMR_USE_SSE = false;
 module.bundle.HMR_BUNDLE_ID = "7fb4cd117271efb6";
 "use strict";
-/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
+/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
   HMRMessage,
@@ -189,6 +190,7 @@ declare var HMR_HOST: string;
 declare var HMR_PORT: string;
 declare var HMR_ENV_HASH: string;
 declare var HMR_SECURE: boolean;
+declare var HMR_USE_SSE: boolean;
 declare var chrome: ExtensionContext;
 declare var browser: ExtensionContext;
 declare var __parcel__import__: (string) => Promise<void>;
@@ -232,7 +234,8 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
         "0.0.0.0"
     ].includes(hostname) ? "wss" : "ws";
     var ws;
-    try {
+    if (HMR_USE_SSE) ws = new EventSource("/__parcel_hmr");
+    else try {
         ws = new WebSocket(protocol + "://" + hostname + (port ? ":" + port : "") + "/");
     } catch (err) {
         if (err.message) console.error(err.message);
@@ -302,12 +305,14 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
             }
         }
     };
-    ws.onerror = function(e) {
-        if (e.message) console.error(e.message);
-    };
-    ws.onclose = function() {
-        console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
-    };
+    if (ws instanceof WebSocket) {
+        ws.onerror = function(e) {
+            if (e.message) console.error(e.message);
+        };
+        ws.onclose = function() {
+            console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
+        };
+    }
 }
 function removeErrorOverlay() {
     var overlay = document.getElementById(OVERLAY_ID);
@@ -36126,6 +36131,7 @@ const Body = ()=>{
                             className: "search flex",
                             children: [
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                    "data-testid": "search-input",
                                     type: "text",
                                     className: "px-8 py-1 mr-3 border focus:border-none",
                                     placeholder: "Search the restaurant",
@@ -36142,7 +36148,7 @@ const Body = ()=>{
                                     children: "Search"
                                 }, void 0, false, {
                                     fileName: "src/components/Body.js",
-                                    lineNumber: 73,
+                                    lineNumber: 74,
                                     columnNumber: 15
                                 }, undefined)
                             ]
@@ -36157,7 +36163,7 @@ const Body = ()=>{
                             children: "Top Rated Resturants"
                         }, void 0, false, {
                             fileName: "src/components/Body.js",
-                            lineNumber: 80,
+                            lineNumber: 81,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -36168,7 +36174,7 @@ const Body = ()=>{
                             }
                         }, void 0, false, {
                             fileName: "src/components/Body.js",
-                            lineNumber: 85,
+                            lineNumber: 86,
                             columnNumber: 15
                         }, undefined)
                     ]
@@ -36185,23 +36191,23 @@ const Body = ()=>{
                                 ...restaurant.info
                             }, void 0, false, {
                                 fileName: "src/components/Body.js",
-                                lineNumber: 95,
+                                lineNumber: 96,
                                 columnNumber: 19
                             }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _restaurantCardDefault.default), {
                                 ...restaurant.info
                             }, void 0, false, {
                                 fileName: "src/components/Body.js",
-                                lineNumber: 97,
+                                lineNumber: 98,
                                 columnNumber: 19
                             }, undefined)
                         }, restaurant?.info?.id, false, {
                             fileName: "src/components/Body.js",
-                            lineNumber: 90,
+                            lineNumber: 91,
                             columnNumber: 15
                         }, undefined))
                 }, void 0, false, {
                     fileName: "src/components/Body.js",
-                    lineNumber: 88,
+                    lineNumber: 89,
                     columnNumber: 11
                 }, undefined)
             ]
@@ -36213,12 +36219,12 @@ const Body = ()=>{
                     imageWidth: 250
                 }, void 0, false, {
                     fileName: "src/components/Body.js",
-                    lineNumber: 106,
+                    lineNumber: 107,
                     columnNumber: 13
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/Body.js",
-                lineNumber: 105,
+                lineNumber: 106,
                 columnNumber: 11
             }, undefined)
         }, void 0, false)
@@ -36260,6 +36266,7 @@ const RestaurantCard = (props)=>{
     // { resData } = props;
     const cuisineList = cuisines ? cuisines.length > 1 ? cuisines.join(", ") : cuisines : "";
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        "data-testid": "res-card",
         className: "w-[250px] h-[500px] mx-3 my-4 bg-[#FFD580] brightness text-black  font-mono border rounded-md shadow hover:shadow-lg hover:scale-105 transform transition duration-75",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
@@ -57149,6 +57156,6 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}]},["9A7zD","1xC6H","2kQhy"], "2kQhy", "parcelRequire164e")
+},{}]},["9wh9R","1xC6H","2kQhy"], "2kQhy", "parcelRequire164e")
 
 //# sourceMappingURL=index.7271efb6.js.map
