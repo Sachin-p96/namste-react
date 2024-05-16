@@ -3,14 +3,8 @@ import { useEffect } from "react";
 
 
 const About = () => {
-    useEffect(() => {
-        fetchbala();
-      }, []);
     
-    const fetchbala = () => {
-        console.log('useEffect')
-    }
-    console.log("reder parent")
+    
     return (
         <>
           <div>

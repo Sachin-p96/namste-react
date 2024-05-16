@@ -1,12 +1,12 @@
 import { CDN_URL } from "../utils/constants";
-const RestaurantCard = ({
-  name,
-  cuisines,
-  cloudinaryImageId,
-  lastMileTravelString,
-  avgRating,
-}) => {
-  console.log(cuisines, "hey");
+const RestaurantCard = (props) => {
+ const {
+    name,
+    cuisines,
+    cloudinaryImageId,
+    lastMileTravelString,
+    avgRating,
+  } = props
   // { resData } = props;
   const cuisineList = cuisines
     ? cuisines.length > 1
@@ -14,7 +14,7 @@ const RestaurantCard = ({
       : cuisines
     : "";
   return (
-    <div className="w-[250px] h-[500px] mx-3 my-4 bg-[#FFD580] brightness text-black  font-mono border rounded-md shadow hover:shadow-lg hover:scale-105 transform transition duration-75">
+    <div data-testid = "res-card"className="w-[250px] h-[500px] mx-3 my-4 bg-[#FFD580] brightness text-black  font-mono border rounded-md shadow hover:shadow-lg hover:scale-105 transform transition duration-75">
       <img
         className="w-96 h-60"
         alt="res-logot"

@@ -2,14 +2,11 @@ import React from "react";
 
 class UserClass extends React.Component {
     constructor (props) {
-        super(props);
-        console.log('condtructor');
+        super(props);      
     }
     componentDidMount () {
-        console.log('didmount--userclass')
     }
   render() {
-    console.log('render')
     const {name} = this.props
     return (
       <div className="user-card">

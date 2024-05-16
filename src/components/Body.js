@@ -64,6 +64,7 @@ const Body = () => {
           <div className="mt-2 p-4 flex justify-end">
             <div className="search flex">
               <input
+                data-testid = "search-input"
                 type="text"
                 className="px-8 py-1 mr-3 border focus:border-none"
                 placeholder="Search the restaurant"

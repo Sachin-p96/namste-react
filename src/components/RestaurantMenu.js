@@ -7,7 +7,7 @@ import RenderItemsSection from "./RenderItemsSection";
 
 const RendermenuDetails = ({menu,showItem,handleIndex}) => {
   
-  console.log(menu, "menu");
+  
   const {itemCards} = menu?.card?.card
   const handleAcoordionClick = () =>{
     handleIndex()
@@ -44,7 +44,6 @@ const RestaurantMenu = () => {
   }
   const { resId } = useParams();
   const resInfo = useMenuInfo(resId);
-  console.log(resInfo, "hahababe");
 
   const isObjectEmpty = (obj) => {
     return isEmpty(obj);
@@ -66,15 +65,12 @@ const RestaurantMenu = () => {
   }
   const { name, costForTwoMessage, cloudinaryImageId } =
     resInfo?.cards[2]?.card?.card?.info;
-  console.log(resInfo, "info");
   const itemCards =
     resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
       (category) =>
         category?.card?.card?.["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-  console.log(itemCards, "hey");
-  console.log(showIndex, "heyINDEX");
  
   return (
     <>

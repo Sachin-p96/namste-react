@@ -7,15 +7,14 @@ export const Header = () => {
   const [btnName, setbtnName] = useState("Login");
   const { loggedUser } = useContext(UserContext);
   const { setName } = useContext(UserContext);
-  console.log(loggedUser, "hahahahahah");
   const [userName, setUserName] = useState(loggedUser);
   const handleButtonChange = () => {
     if (btnName == "Login") {
       setbtnName("Logout");
-      setName("Sachin In");
+      //setName("Sachin In");
     } else {
       setbtnName("Login");
-      setName("Sachin Out");
+      //setName("Sachin Out");
     }
   };
   const cartitems = useSelector((store) =>  store.cart.items);
