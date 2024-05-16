@@ -760,6 +760,7 @@ const AppLayout = () => {
     setName("Elone Musk");
   }, []);
   return (
+    <>
     <Provider store = {appStore}>
     <UserContext.Provider value={{ loggedUser: name, setName }}>
       <div className="app">
@@ -769,6 +770,7 @@ const AppLayout = () => {
       </div>
     </UserContext.Provider>
     </Provider>
+    </>
   );
 };
 
